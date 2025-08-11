@@ -30,12 +30,16 @@ class HeroWidget extends StatelessWidget {
             // biar ada transisi bawaan nya
             tag:
                 'hero-image', // unique value.  harus kasih value beda beda untuk tag
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                "assets/images/legionwphd.png",
-                color: Colors.teal, // buat ngewarna gambarnya
-                colorBlendMode: BlendMode.modulate,
+            child: AspectRatio(
+              aspectRatio: 1920/1080,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  "assets/images/legionwphd.png",
+                  fit: BoxFit.cover,
+                  color: Colors.teal, // buat ngewarna gambarnya
+                  colorBlendMode: BlendMode.modulate,
+                ),
               ),
             ),
           ),

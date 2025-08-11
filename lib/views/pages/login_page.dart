@@ -34,6 +34,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // double widthScreen = MediaQuery.of(context).size.width; // kalau mau tahu lebar layar
+    
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -41,9 +44,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: LayoutBuilder(
-              builder: (context,constraints) {
+              builder: (context, BoxConstraints constraints) {
                 return FractionallySizedBox(
-              widthFactor: 0.5, //  persen dari layar
+              widthFactor: constraints.maxWidth > 500 ?  0.5 : 1.0, //   kalau layarnya (perangkat) lebih besar dari 500? kalau iya berarti show 50 persen dari layar. kalau ga ya biasa aja (100%)
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
