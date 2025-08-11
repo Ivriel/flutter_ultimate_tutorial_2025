@@ -14,6 +14,10 @@ class _LoginPageState extends State<LoginPage> {
   
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword  = TextEditingController();
+
+  String confirmedEmail = "tes";
+  String confirmedPassword = "tespw";
+
   bool isShowedPassword = false;
 
   @override
@@ -64,16 +68,11 @@ class _LoginPageState extends State<LoginPage> {
               onEditingComplete:()=> setState(() {}),
             ),
               const SizedBox(height: 20),
-            FilledButton(
+            ElevatedButton(
               onPressed: (){
-                 Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const WidgetTree()
-                  ),
-                );
+                onLoginPressed();
               },
-              style: FilledButton.styleFrom(
+              style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 40)
               ),
               child: const Text("Login")
@@ -83,4 +82,33 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  
+  void onLoginPressed(){
+    if(confirmedEmail == controllerEmail.text && confirmedPassword == controllerPassword.text) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context)=> const WidgetTree()
+      )
+    );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 1),
+          content:  Text(
+            "Email / password salah",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+            ),
+          )
+        )
+      );
+    }
+
+  }
+
 }
