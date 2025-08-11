@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ultimate_tutorial_2025/views/widget_tree.dart';
+import 'package:flutter_ultimate_tutorial_2025/views/pages/login_page.dart'; 
 import 'package:lottie/lottie.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -13,23 +13,54 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.asset("assets/lotties/welcome.json"),
+            Lottie.asset("assets/lotties/welcome_2.json"),
+             const FittedBox( // biar tetap bisa satu baris meski harusnya overflow / kebawah
+               child: Text(
+                "Ivriel Gunawan",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold ,
+                  fontSize: 500,
+                  letterSpacing: 50
+                ),
+              ),
+             ),
+             const SizedBox(height: 20),
             FilledButton(
               onPressed: (){
                  Navigator.pushReplacement(
                   context,
-                   PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) => const WidgetTree(),
-                    transitionDuration: const Duration(milliseconds: 700), // Lebih lambat untuk lihat transisi
-                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    },
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage()
+                  ),
+                  //  PageRouteBuilder(
+                  //   pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
+                  //   transitionDuration: const Duration(milliseconds: 700), // Lebih lambat untuk lihat transisi widget heronya
+                  //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  //     return FadeTransition(
+                  //       opacity: animation,
+                  //       child: child,
+                  //     );
+                  //   },
+                  // ),
+                );
+              },
+              style: FilledButton.styleFrom(
+                minimumSize: const Size(double.infinity, 40)
+              ),
+              child: const Text("Get Started")
+            ),
+             TextButton(
+              onPressed: (){
+                 Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage()
                   ),
                 );
               },
+              style: FilledButton.styleFrom(
+                minimumSize: const Size(double.infinity, 40)
+              ),
               child: const Text("Login")
             )
           ],

@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          const HeroWidget(),
+          const HeroWidget(title: 'Home'), 
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 10),
