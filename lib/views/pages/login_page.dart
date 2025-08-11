@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ultimate_tutorial_2025/views/widget_tree.dart';
-import 'package:flutter_ultimate_tutorial_2025/views/widgets/hero_widget.dart';
+import 'package:lottie/lottie.dart';
 
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({
+    super.key,
+    required this.title 
+  });
+
+  final String title;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -12,8 +17,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   
-  TextEditingController controllerEmail = TextEditingController();
-  TextEditingController controllerPassword  = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController(text: 'tes'); // buat binding langsung value input field nya (text)
+  TextEditingController controllerPassword  = TextEditingController(text: 'tespw');
 
   String confirmedEmail = "tes";
   String confirmedPassword = "tespw";
@@ -31,53 +36,61 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body:  Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-             const HeroWidget(title: 'Login'),
-             const SizedBox(height: 20),
-              TextField(
-              controller: controllerEmail,
-              decoration: InputDecoration(
-                hintText: 'Email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15)
-                )
-              ),
-              onEditingComplete:()=> setState(() {}),
-            ),
-             const SizedBox(height: 10),
-              TextField(
-              controller: controllerPassword,
-              obscureText: isShowedPassword,
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isShowedPassword = !isShowedPassword;
-                    });
-                  },
-                  icon: isShowedPassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                  Lottie.asset(
+                    'assets/lotties/welcome.json',
+                    height: 400
+                  ),
+                  TextField(
+                  controller: controllerEmail,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15)
+                    )
+                  ),
+                  onEditingComplete:()=> setState(() {}),
                 ),
-                hintText: 'Password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15)
-                )
-              ),
-              onEditingComplete:()=> setState(() {}),
+                 const SizedBox(height: 10),
+                  TextField(
+                  controller: controllerPassword,
+                  obscureText: isShowedPassword,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isShowedPassword = !isShowedPassword;
+                        });
+                      },
+                      icon: isShowedPassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+                    ),
+                    hintText: 'Password',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15)
+                    )
+                  ),
+                  onEditingComplete:()=> setState(() {}),
+                ),
+                  const SizedBox(height: 20),
+                FilledButton(
+                  onPressed: (){
+                    onLoginPressed();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 40)
+                  ),
+                  child: Text(widget.title)
+                ),
+                const SizedBox(height: 50)
+              ],
             ),
-              const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: (){
-                onLoginPressed();
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 40)
-              ),
-              child: const Text("Login")
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -85,12 +98,14 @@ class _LoginPageState extends State<LoginPage> {
 
   
   void onLoginPressed(){
+
     if(confirmedEmail == controllerEmail.text && confirmedPassword == controllerPassword.text) {
-    Navigator.pushReplacement(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
         builder: (context)=> const WidgetTree()
-      )
+      ),
+      (route)=> false // hapus semua route dibelakang 
     );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -108,7 +123,6 @@ class _LoginPageState extends State<LoginPage> {
         )
       );
     }
-
   }
 
 }

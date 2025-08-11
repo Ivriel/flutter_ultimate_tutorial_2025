@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ultimate_tutorial_2025/data/constants.dart';
+import 'package:flutter_ultimate_tutorial_2025/views/pages/course_page.dart';
+import 'package:flutter_ultimate_tutorial_2025/views/widgets/container_widget.dart';
 import 'package:flutter_ultimate_tutorial_2025/views/widgets/hero_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,34 +9,43 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          const HeroWidget(title: 'Home'), 
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child:const Card(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Basic Layout",
-                      style: KTextStyle.titleTealText
-                    ),
-                    Text(
-                      "The description of this",
-                      style: KTextStyle.descriptionText,
-                    )
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
+    List<String> list = [
+      KValue.keyConcepts,
+      KValue.cleanUi,
+      KValue.fixBugs,
+      KValue.basicLayout,
+    ];
+
+    return Padding(
+      padding: const  EdgeInsets.symmetric(horizontal: 20),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            const HeroWidget(
+              title: 'Home',
+              nextPage: CoursePage(),
+            ), // kasih titik tiga buat nandain kalau mau ngasih banyak widget biar ga error
+            ... List.generate(   // length dan widget nya (parameter)
+              list.length,(index) {
+                return 
+              ContainerWidget(
+              title: list.elementAt(index), // biar nge print title nya sesuai isi list nya (array)
+              description: 'This is a description',
+             );
+            }) 
+            // Column(
+            //   children:  List.generate(   // length dan widget nya (parameter)
+            //   3,(index) {
+            //     return 
+            //  const ContainerWidget(
+            //   title: 'Basic Layout',
+            //   description: 'This is a description',
+            //  );
+            // }) 
+            // )
+          ],
+        ),
       ),
     );
   }

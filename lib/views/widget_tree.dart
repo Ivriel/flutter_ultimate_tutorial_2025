@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ultimate_tutorial_2025/data/constants.dart';
 import 'package:flutter_ultimate_tutorial_2025/data/notifiers.dart';
 import 'package:flutter_ultimate_tutorial_2025/views/pages/home_page.dart';
 import 'package:flutter_ultimate_tutorial_2025/views/pages/settings_page.dart';
 import 'package:flutter_ultimate_tutorial_2025/views/widgets/navbar_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pages/profile_page.dart';
 
@@ -21,8 +23,10 @@ class WidgetTree extends StatelessWidget {
           title: const Text("Flutter Map"),
           actions: [
             IconButton(
-              onPressed: (){
+              onPressed: () async {
                 isDarkModeNotifier.value = !isDarkModeNotifier.value;
+                final SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setBool(KConstants.themeModeKey, isDarkModeNotifier.value);
               },
               icon: ValueListenableBuilder(
                 valueListenable:isDarkModeNotifier,
