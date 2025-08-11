@@ -13,9 +13,9 @@ class ContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return    Container(
+    return Container(
               width: double.infinity,
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.symmetric(vertical: 2),
               child:Card(
                 child: Padding(
                   padding: const EdgeInsets.all(20),

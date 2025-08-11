@@ -17,19 +17,20 @@ class HomePage extends StatelessWidget {
     ];
 
     return Padding(
-      padding: const  EdgeInsets.symmetric(horizontal: 20),
+      padding: const  EdgeInsets.symmetric(horizontal: 10),
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
+            const SizedBox(height: 10),
             const HeroWidget(
               title: 'Home',
               nextPage: CoursePage(),
             ), // kasih titik tiga buat nandain kalau mau ngasih banyak widget biar ga error
+            const SizedBox(height: 5),
             ... List.generate(   // length dan widget nya (parameter)
               list.length,(index) {
-                return 
-              ContainerWidget(
+                return ContainerWidget(
               title: list.elementAt(index), // biar nge print title nya sesuai isi list nya (array)
               description: 'This is a description',
              );

@@ -40,56 +40,63 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                  Lottie.asset(
-                    'assets/lotties/welcome.json',
-                    height: 400
-                  ),
-                  TextField(
-                  controller: controllerEmail,
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)
-                    )
-                  ),
-                  onEditingComplete:()=> setState(() {}),
-                ),
-                 const SizedBox(height: 10),
-                  TextField(
-                  controller: controllerPassword,
-                  obscureText: isShowedPassword,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isShowedPassword = !isShowedPassword;
-                        });
-                      },
-                      icon: isShowedPassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+            child: LayoutBuilder(
+              builder: (context,constraints) {
+                return FractionallySizedBox(
+              widthFactor: 0.5, //  persen dari layar
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                    Lottie.asset(
+                      'assets/lotties/welcome.json',
+                      height: 400
                     ),
-                    hintText: 'Password',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)
-                    )
+                    TextField(
+                    controller: controllerEmail,
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)
+                      )
+                    ),
+                    onEditingComplete:()=> setState(() {}),
                   ),
-                  onEditingComplete:()=> setState(() {}),
-                ),
-                  const SizedBox(height: 20),
-                FilledButton(
-                  onPressed: (){
-                    onLoginPressed();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 40)
+                   const SizedBox(height: 10),
+                    TextField(
+                    controller: controllerPassword,
+                    obscureText: isShowedPassword,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isShowedPassword = !isShowedPassword;
+                          });
+                        },
+                        icon: isShowedPassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+                      ),
+                      hintText: 'Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)
+                      )
+                    ),
+                    onEditingComplete:()=> setState(() {}),
                   ),
-                  child: Text(widget.title)
-                ),
-                const SizedBox(height: 50)
-              ],
-            ),
+                    const SizedBox(height: 20),
+                  FilledButton(
+                    onPressed: (){
+                      onLoginPressed();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 40)
+                    ),
+                    child: Text(widget.title)
+                  ),
+                  const SizedBox(height: 50)
+                ],
+              ),
+            );
+              },
+            )
           ),
         ),
       ),

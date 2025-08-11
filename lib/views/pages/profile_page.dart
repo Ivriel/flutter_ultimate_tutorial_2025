@@ -16,6 +16,10 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
+           const CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage("assets/images/legionwphd.png"),
+          ),
           ListTile(
             title: const Text("Logout"),
             onTap: (){
