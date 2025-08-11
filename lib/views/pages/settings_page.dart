@@ -58,6 +58,33 @@ class _SettingsPageState extends State<SettingsPage> {
               },
               child: const Text("Open Snackbar")
             ),
+            const Divider(
+              color: Colors.teal,
+              thickness: 2.0,
+              endIndent: 200, // batas panjangnya divider
+            ),
+            ElevatedButton(
+              onPressed: (){
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Alert Title"),
+                      content: const Text("Alert Content"),
+                      actions: [
+                        FilledButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Close")
+                        )
+                      ],
+                    );
+                  }
+                );
+              },
+              child: const Text("Open Dialog")
+            ),
             DropdownButton(
               value: selectedItem,
               items: itemsButton.map((String item){
