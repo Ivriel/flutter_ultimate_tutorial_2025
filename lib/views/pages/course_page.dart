@@ -15,6 +15,7 @@ class CoursePage extends StatefulWidget {
 
 class _CoursePageState extends State<CoursePage> {
   late Future <Activity> activity; // valuenya bakal diset nanti jadi kalau null sekarang gapapa ( itu fungsinya deklarasi late)
+  bool isFirst = true;
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _CoursePageState extends State<CoursePage> {
   var response = await http.get(url);
 
   if (response.statusCode == 200) {
+    log('Response body: ${response.body}');
     try {
       return Activity.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
     } catch (e, stack) {
@@ -43,7 +45,18 @@ class _CoursePageState extends State<CoursePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(), // supaya ada back buttonnya
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: (){
+                setState(() {
+                  isFirst = !isFirst;
+                });
+              }, 
+              icon: const Icon(Icons.switch_access_shortcut)
+              )
+          ],
+        ), // supaya ada back buttonnya
         body: FutureBuilder(
           future: activity,
           builder: (context, AsyncSnapshot snapshot) {
@@ -63,12 +76,37 @@ class _CoursePageState extends State<CoursePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: Column(
+                  child: AnimatedCrossFade(
+                    firstChild: Column(
                     children: [
                       HeroWidget(title: activity.activity),
-                      Text(activity.activity)
+                      Text('Activity: ${activity.activity}'),
+                      Text('Availability: ${activity.availability}'),
+                      Text('Type: ${activity.type}'),
+                      Text('Participants: ${activity.participants}'),
+                      Text('Price: ${activity.price}'),
+                      Text('Accessibility: ${activity.accessibility}'),
+                      Text('Duration: ${activity.duration}'),
+                      Text('Kid Frienly: ${activity.kidFriendly}'),
+                      Text('Link: ${activity.link}'),
+                      Text('Key: ${activity.key}'),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: (){
+                          setState(() {
+                            getData();
+                          });
+                        }, 
+                        child: const Text("Fetch another activity")
+                      )
                     ],
-                  ),
+                  ), 
+                    secondChild: Center(
+                      child: Image.asset("assets/images/legionwphd.png"),
+                    ), 
+                    crossFadeState: isFirst ? CrossFadeState.showFirst : CrossFadeState.showSecond, 
+                    duration: const Duration(milliseconds: 1000)
+                  )
                 ),
               );
             } else {
